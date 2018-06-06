@@ -3,6 +3,7 @@
 *****************************************/
 
 const path = require('path');
+ const webpack = require('webpack');
 
 /***************************************
 * Entry
@@ -12,13 +13,17 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    app: './src/index.js',
-    print: './src/print.js'
+    app: './src/index.js'
   },
   devtool: 'inline-source-map',
   devServer: {
-     contentBase: './dist'
+     contentBase: './dist',
+     hot: true
   },
+  plugins: [
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()
+  ],
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
